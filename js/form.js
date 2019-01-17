@@ -1,7 +1,7 @@
 /*----------USING jQuery FOR ALL PROGRAMMING----------*/
 
 //1. Set focus on the first text field on page load.
-
+$("#name").focus();
 
 
 /* 2. Job role section:
@@ -9,6 +9,13 @@
       - Give the field an ID of 'other-title' and add placeholder text 'Your Job Role'
       - I'll need to add 'other' input directly into the HTML and hide it initially with JS
 */
+
+
+$("#other-title").hide();
+$("fieldset label").eq(2).hide();
+
+
+
 
 
 /* 3. T-Shirt Section:
