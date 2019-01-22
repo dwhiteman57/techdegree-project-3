@@ -1,17 +1,20 @@
 
 /*----------USING jQuery FOR ALL PROGRAMMING----------*/
 
-//1. Set focus on the first text field on page load.
+//1. PAGE LOADING:
+
+//Set focus on the first text field
 $("#name").focus();
 
+//Hide 'other field'.
+$(".other").hide();
 
 /* 2. Job role section:
       - Include a text field that will reveal when 'other' is selected from job role drop down.
       - Give the field an ID of 'other-title' and add placeholder text 'Your Job Role'
-      - I'll need to add 'other' input directly into the HTML and hide it initially with JS
+      - Add 'other' input directly into the HTML.
+      - Added class selector in HTML to target 'other title and input field' at once
 */
-
-$(".other").hide();
 
 $('#title').on('change',function(){
        if( $(this).val()==="other"){
