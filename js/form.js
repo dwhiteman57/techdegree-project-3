@@ -9,6 +9,7 @@ $("#name").focus();
 //Hide 'other field'.
 $(".other").hide();
 
+
 /* 2. Job role section:
       - Include a text field that will reveal when 'other' is selected from job role drop down.
       - Give the field an ID of 'other-title' and add placeholder text 'Your Job Role'
@@ -36,6 +37,12 @@ toggle()
       - For color menu, only display the color options that match the design selected in the design menu
       - When a new theme is selected from the design menu, 'color' field and drop down menu is updated
 */
+
+
+
+
+
+
 
 
 
