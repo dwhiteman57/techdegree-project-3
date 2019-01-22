@@ -1,3 +1,4 @@
+
 /*----------USING jQuery FOR ALL PROGRAMMING----------*/
 
 //1. Set focus on the first text field on page load.
@@ -10,13 +11,23 @@ $("#name").focus();
       - I'll need to add 'other' input directly into the HTML and hide it initially with JS
 */
 
+$(".other").hide();
 
-$("#other-title").hide();
-$("fieldset label").eq(2).hide();
+$('#title').on('change',function(){
+       if( $(this).val()==="other"){
+       $(".other").show()
+       }
+       else{
+       $(".other").hide()
+       }
+   });
 
+/* --- OTHER INTERESTING METHODS TO REMEMBER--------
 
+toggle()
+[value="SEL1"]
 
-
+--------------------------------------------------*/
 
 /* 3. T-Shirt Section:
       - For color menu, only display the color options that match the design selected in the design menu
