@@ -16,8 +16,8 @@ $(".other").hide();
       - Added class selector in HTML to target 'other title and input field' at once
 */
 
-$('#title').on('change',function(){
-       if( $(this).val()==="other"){
+$('#title').on('change', function() {
+       if($(this).val() === "other") {
        $(".other").show()
        }
        else{
