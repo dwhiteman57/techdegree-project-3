@@ -48,7 +48,7 @@ function showtextbox() {
  if (select_status == 'select theme') {
         $('#color').hide();
      } else {
-        $('#color').show();
+
      }
  }
 
