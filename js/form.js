@@ -17,33 +17,40 @@ $(".other").hide();
       - Added class selector in HTML to target 'other title and input field' at once
 */
 
-$('#title').on('change', function() {
-       if($(this).val() === "other") {
+$('#title').change(function() {
+       if ($(this).val() === "other") {
        $(".other").show()
        }
-       else{
+       else {
        $(".other").hide()
        }
    });
 
-/* --- OTHER INTERESTING METHODS TO REMEMBER--------
-
-toggle()
-[value="SEL1"]
-
---------------------------------------------------*/
 
 /* 3. T-Shirt Section:
       - For color menu, only display the color options that match the design selected in the design menu
       - When a new theme is selected from the design menu, 'color' field and drop down menu is updated
 */
 
-
-
-
-
-
-
+function showtextbox() {
+     let select_status = $('#design').val();
+     /* if select puns or heart from select box, show correct color options */
+ if (select_status == 'js puns') {
+        $('#color, #puns').show();
+     } else {
+        $('#puns').hide();
+     }
+ if (select_status == 'heart js') {
+        $('#heart').show();
+     } else {
+        $('#heart').hide();
+     }
+ if (select_status == 'select theme') {
+        $('#color').hide();
+     } else {
+        $('#color').show();
+     }
+ }
 
 
 /* 4. Register for Activities:
