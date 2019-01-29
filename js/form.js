@@ -20,21 +20,22 @@ $(".other").hide();
 $('#title').change(function() {
        if ($(this).val() === "other") {
        $(".other").show()
-       }
-       else {
+       } else {
        $(".other").hide()
        }
    });
 
 
 /* 3. T-Shirt Section:
-      - For color menu, only display the color options that match the design selected in the design menu
-      - When a new theme is selected from the design menu, 'color' field and drop down menu is updated
+      - I began by hiding the color dropdown by setting the style display to none in 'index.html'. Since the color choice is determined by the design selection, it follwed that the user should begin by selecting a design. Once they make a selection, the appropriate color choices appear. If no design is selected, the color menu is hidden.
+
+      - When a design is chosen, I call the function on '#design in 'index.html' using the 'onchange="showtextbox()"'.
+
+      - While hiding the color menu wasn't a requirement for the project, I think it flows better. Also, I wanted to add it for my own practice.
 */
 
 function showtextbox() {
-     let select_status = $('#design').val();
-     /* if select puns or heart from select box, show correct color options */
+ let select_status = $('#design').val();
  if (select_status == 'js puns') {
         $('#color, #puns').show();
      } else {
@@ -58,6 +59,33 @@ function showtextbox() {
       - When user unchecks an activity, make sure tha tcompeting activities are no longer disabled
       - As a user selects activities, total should update according to selections
 */
+
+$(document).ready(function() {
+    $("input").click(function(event) {
+        updateTotal();
+    });
+});
+
+function updateTotal() {
+    let total = 0;
+    $(".activities input:checked").each(function() {
+        total += parseFloat(this.value);
+    });
+    $('#total').val("$" + total.toFixed(2));
+}
+
+
+
+//.attr("rel"))
+//$('#yourid').attr('name')
+//:nth-child(n)
+
+
+
+
+
+
+
 
 
 /* 5. Payment Info:
