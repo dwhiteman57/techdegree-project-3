@@ -60,26 +60,38 @@ function showtextbox() {
       - As a user selects activities, total should update according to selections
 */
 
-$("input").change(function() {
-  let total = 0;
-  $(".activities input:checked").each(function() {
-      total += parseFloat(this.value);
-  });
-  $('#total').val("$" + total.toFixed(2));
+
+$(document).ready(function() {
+    $("input").click(function(event) {
+        updateTotal();
+    });
 });
 
+function updateTotal() {
+    let total = 0;
+    $("#reg-activity input:checked").each(function() {
+        total += parseFloat(this.value);
+    });
+    $('#total').val("$" + total.toFixed(2));
+}
 
 
 
+/*----------ELIMINATING COMPETING EVENTS FUNCTION----------*/
 
 
+$(document).ready(function() {
+    $("input").click(function(event) {
+        activityReg();
+    });
+});
 
-
-
-
-
-
-
+function activityReg() {
+  let reg = $('#reg-activity input[name="js-frameworks"]').is(":checked");
+  if (reg == true) {
+      $("#exp").css("background-color", "red");
+    }
+}
 
 
 
