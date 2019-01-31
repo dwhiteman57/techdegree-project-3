@@ -60,6 +60,7 @@ function showtextbox() {
       - As a user selects activities, total should update according to selections
 */
 
+/*----------COST TOTAL FUNCTION----------*/
 
 $(document).ready(function() {
     $("input").click(function(event) {
@@ -74,7 +75,6 @@ function updateTotal() {
     });
     $('#total').val("$" + total.toFixed(2));
 }
-
 
 
 /*----------ELIMINATING COMPETING EVENTS FUNCTION----------*/
@@ -120,6 +120,30 @@ function activityReg() {
       - When a user selects paypal or bitcoin, alternate payment forms should be hidden
       - Hide 'select payment method' from drop down menu leaving payment options only
 */
+
+// HIDE PayPal AND Bitcoin INSTRUCTIONS ON PAGE LOAD
+$(".instructions").hide();
+
+// HIDE PAMENT SELECT METHOD ON PAGE LOAD
+$('#payment option[value="select_method"]').remove();
+
+// FUNCTION FOR SELECTING PAYMENT METHOD & HIDING ALTERNATE PAYMENT FORMS
+function paymentSelect() {
+    let select_status = $('#payment').val();
+    if (select_status == 'paypal') {
+          $('.paypal').show();
+          $('#credit-card, .bitcoin').hide();
+       }
+    if (select_status == 'bitcoin') {
+          $('.bitcoin').show();
+          $('#credit-card, .paypal').hide();
+       }
+
+    if (select_status == 'credit card') {
+         $('#credit-card').show();
+         $('.instructions').hide();
+      }
+}
 
 
 /* 6. Form Validation: (RegEx)
