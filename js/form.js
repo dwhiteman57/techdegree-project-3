@@ -87,13 +87,31 @@ $(document).ready(function() {
 });
 
 function activityReg() {
-  let reg = $('#reg-activity input[name="js-frameworks"]').is(":checked");
-  if (reg == true) {
-      $("#exp").css("background-color", "red");
+  let frame = $('#reg-activity input[name="js-frameworks"]').is(":checked");
+  let exp = $('#reg-activity input[name="express"]').is(":checked");
+  let libs = $('#reg-activity input[name="js-libs"]').is(":checked");
+  let nodeJs = $('#reg-activity input[name="node"]').is(":checked");
+  if (frame == true) {
+      $("#exp").css("color", "grey");
+    } else {
+      $("#exp").css("color", "#000");
+    }
+  if (exp == true) {
+      $("#js-frame").css("color", "grey");
+    } else {
+      $("#js-frame").css("color", "#000");
+    }
+  if (libs == true) {
+      $("#nodejs").css("color", "grey");
+    } else {
+      $("#nodejs").css("color", "#000");
+    }
+  if (nodeJs == true) {
+      $("#js-libs").css("color", "grey");
+    } else {
+      $("#js-libs").css("color", "#000");
     }
 }
-
-
 
 
 /* 5. Payment Info:
