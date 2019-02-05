@@ -152,9 +152,109 @@ function paymentSelect() {
 */
 
 
+/*-----------VALIDATORS---------------*/
+
+
+
+/* Name field [Not empty. Also added an notification for invalid RegEx and changed border color to red. Red disappears on valid RegEx] */
+$(document).ready(function() {
+
+$('#name').focusout(function(){
+      $('#name').filter(function(){
+          let nameInput=$('#name').val();
+          let pattern = /^[a-z]+[\s]?[a-z]+$/i;
+          if (!pattern.test(nameInput) ) {
+              $("#name").css("border-color", "red");
+              }
+          if (pattern.test(nameInput) ) {
+              $("#name").css("border-color", "#c1deeb");
+            }
+        })
+    });
+});
+
+
+/* Email field (proper formatting) */
+$(document).ready(function() {
+
+$('#mail').focusout(function() {
+      $('#mail').filter(function() {
+          let emailInput=$('#mail').val();
+          let pattern = /^[^@]+@[^@.]+\.[a-z]+$/i;
+          if (!pattern.test(emailInput) ) {
+              $("#mail").css("border-color", "red");
+              }
+          if (pattern.test(emailInput) ) {
+              $("#mail").css("border-color", "#c1deeb");
+            }
+        })
+    });
+});
+
+
+
+/* Validate at least one activity is selected */
+$(document).ready(function() {
+    $(".submit-btn").click(function(event) {
+        activityVal();
+    });
+});
+
+function activityVal() {
+    let actSel = $("#reg-activity input[type='checkbox']").is(":checked");
+    if (actSel == false) {
+        alert("Please register for an activity");
+    } else {
+
+    }
+}
+
+
+
+
+// //CC 13-16 digits
+// function isValidCC () {}
+// return/\d{13,16} /.test()
+
+
+
+
+
+// //zip 5 digits
+// function isValidZip () {}
+// return/\d{5} /.test()
+
+
+
+
+
+// //CVV 3 digits
+// function isValidCVV () {}
+// return/ \d{3}/.test()
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 7. Validation Messages:
       - Provide indication when there's a validation error on the above fields. Should not be visible by default.
 */
+
+
+
+
+
+
+
+
 
 
 /* 8. Form works without JavaScript:
