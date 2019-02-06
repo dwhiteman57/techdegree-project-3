@@ -152,12 +152,15 @@ function paymentSelect() {
 */
 
 
-/*-----------VALIDATORS---------------*/
+/*-----------VALIDATORS & NOTIFICATIONS---------------*/
 
 
 
-/* Name field [Not empty. Also added an notification for invalid RegEx and changed border color to red. Red disappears on valid RegEx] */
+/* Name field [Not empty. Also added an notification for invalid RegEx and changed border color to red. Notificaton and red border dissapear on valid RegEx] */
 $(document).ready(function() {
+  let nameFlash = $(".nameflsh ");
+  nameFlash.hide();
+
 
 $('#name').focusout(function(){
       $('#name').filter(function(){
@@ -165,9 +168,11 @@ $('#name').focusout(function(){
           let pattern = /^[a-z]+[\s]?[a-z]+$/i;
           if (!pattern.test(nameInput) ) {
               $("#name").css("border-color", "red");
+              nameFlash.show(1000);
               }
           if (pattern.test(nameInput) ) {
               $("#name").css("border-color", "#c1deeb");
+              nameFlash.hide(1000);
             }
         })
     });
@@ -176,6 +181,8 @@ $('#name').focusout(function(){
 
 /* Email field (proper formatting) */
 $(document).ready(function() {
+  let mailFlash = $(".mailflsh ");
+  mailFlash.hide();
 
 $('#mail').focusout(function() {
       $('#mail').filter(function() {
@@ -183,14 +190,15 @@ $('#mail').focusout(function() {
           let pattern = /^[^@]+@[^@.]+\.[a-z]+$/i;
           if (!pattern.test(emailInput) ) {
               $("#mail").css("border-color", "red");
+              mailFlash.show(1000);
               }
           if (pattern.test(emailInput) ) {
               $("#mail").css("border-color", "#c1deeb");
+              mailFlash.hide(1000);
             }
         })
     });
 });
-
 
 
 /* Validate at least one activity is selected */
@@ -204,59 +212,84 @@ function activityVal() {
     let actSel = $("#reg-activity input[type='checkbox']").is(":checked");
     if (actSel == false) {
         alert("Please register for an activity");
+        event.preventDefault();
     } else {
 
     }
 }
 
 
+/* Validate CC number is between 13-16 digits */
+$(document).ready(function() {
+  let ccFlash = $(".ccnum ");
+  ccFlash.hide();
 
-
-// //CC 13-16 digits
-// function isValidCC () {}
-// return/\d{13,16} /.test()
-
-
-
-
-
-// //zip 5 digits
-// function isValidZip () {}
-// return/\d{5} /.test()
-
-
-
-
-
-// //CVV 3 digits
-// function isValidCVV () {}
-// return/ \d{3}/.test()
-
-
+$('#cc-num').focusout(function() {
+      $('#cc-num').filter(function() {
+          let ccInput=$('#cc-num').val();
+          let pattern = /\d{13,16}/;
+          if (!pattern.test(ccInput) ) {
+              $("#cc-num").css("border-color", "red");
+              ccFlash.show(1000);
+              }
+          if (pattern.test(ccInput) ) {
+              $("#cc-num").css("border-color", "#c1deeb");
+              ccFlash.hide(1000);
+            }
+        })
+    });
+});
 
 
 
+/* Validate zip is 5 digits */
+$(document).ready(function() {
+  let zipFlash = $(".zip ");
+  zipFlash.hide();
+
+$('#zip').focusout(function() {
+      $('#zip').filter(function() {
+          let zipInput=$('#zip').val();
+          let pattern = /\d{5}/;
+          if (!pattern.test(zipInput) ) {
+              $("#zip").css("border-color", "red");
+              zipFlash.show(1000);
+              }
+          if (pattern.test(zipInput) ) {
+              $("#zip").css("border-color", "#c1deeb");
+              zipFlash.hide(1000);
+            }
+        })
+    });
+});
+
+
+
+/* Validate CVV is 3 digits */
+
+$(document).ready(function() {
+  let cvvFlash = $(".cvv ");
+  cvvFlash.hide();
+
+$('#cvv').focusout(function() {
+      $('#cvv').filter(function() {
+          let ccvInput=$('#cvv').val();
+          let pattern = /\d{3}/;
+          if (!pattern.test(ccvInput) ) {
+              $("#cvv").css("border-color", "red");
+              cvvFlash.show(1000);
+              }
+          if (pattern.test(ccvInput) ) {
+              $("#cvv").css("border-color", "#c1deeb");
+              cvvFlash.show(1000);
+            }
+        })
+    });
+});
 
 
 
 
-
-
-
-
-/* 7. Validation Messages:
-      - Provide indication when there's a validation error on the above fields. Should not be visible by default.
-*/
-
-
-
-
-
-
-
-
-
-
-/* 8. Form works without JavaScript:
+/* 7. Form works without JavaScript:
       - User should have access to all form fields and payment info if JS isn't working
 */
