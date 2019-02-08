@@ -114,14 +114,15 @@ button:hover {
 }
 
 .flashMessage {
-    color: white;
-    background-color: #22627e;
-    padding: 15px;
-    border-radius: 5px;
-    display: block;
-    width: calc(100%);
-    margin-bottom: 40px;
+  color: white;
+  background-color: #F2BE5C;
+  padding: 15px;
+  border-radius: 5px;
+  display: block;
+  width: calc(100%);
+  margin-bottom: 20px;
 }
+
 
 /* =================================
   Page Styles
@@ -144,6 +145,11 @@ button:hover {
 .credit-card {
 	margin-top: 1.25em;
 }
+
+/* #exp-hd {
+	margin-bottom: 5em;
+} */
+
 
 /* =================================
   Helper Classes

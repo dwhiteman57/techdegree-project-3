@@ -27,31 +27,34 @@ $('#title').change(function() {
 
 
 /* 3. T-Shirt Section:
-      - I began by hiding the color dropdown by setting the style display to none in 'index.html'. Since the color choice is determined by the design selection, it follwed that the user should begin by selecting a design. Once they make a selection, the appropriate color choices appear. If no design is selected, the color menu is hidden.
-
-      - When a design is chosen, I call the function on '#design in 'index.html' using the 'onchange="showtextbox()"'.
-
-      - While hiding the color menu wasn't a requirement for the project, I think it flows better. Also, I wanted to add it for my own practice.
+      - Disply colors consistent with the design selection and hide colors that are not consistent with design selection.
 */
 
-function showtextbox() {
- let select_status = $('#design').val();
- if (select_status == 'js puns') {
-        $('#color, #puns').show();
-     } else {
-        $('#puns').hide();
-     }
- if (select_status == 'heart js') {
-        $('#heart').show();
-     } else {
-        $('#heart').hide();
-     }
- if (select_status == 'select theme') {
-        $('#color').hide();
-     } else {
+$('#colors-js-puns').hide();
 
-     }
- }
+$(document).ready(function() {
+    $("#design").change(function(event) {
+        tshirt();
+    });
+});
+
+function tshirt() {
+  let selPuns = $('#design option[value="js puns"]');
+  let selHeart = $('#design option[value="heart js"]');
+  let selTheme = $('#design option[value="select theme"]');
+  if (selPuns.is(':selected')) {
+    $('#colors-js-puns').show();
+    $("#puns").show();
+    $("#heart").hide();
+  }
+  if (selHeart.is(':selected')) {
+    $("#heart").show();
+    $("#puns").hide();
+  }
+  if (selTheme.is(':selected')) {
+    $('#colors-js-puns').hide();
+  }
+}
 
 
 /* 4. Register for Activities:
@@ -146,17 +149,13 @@ function paymentSelect() {
 }
 
 
-/* 6. Form Validation: (RegEx)
-      - Setup RegEx validations on name (not empty), email (proper formatting), checkbox (at least one seleciton), CC (13-16 digits, zip 5 digits, CVV 3 digits)
-      - Validation on payment for CC only; not paypal or bitcoin
-*/
+/* 6. Form Validation: (RegEx) */
 
 
 /*-----------VALIDATORS & NOTIFICATIONS---------------*/
 
 
-
-/* Name field [Not empty. Also added an notification for invalid RegEx and changed border color to red. Notificaton and red border dissapear on valid RegEx] */
+/* Name field - not empty. Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
 $(document).ready(function() {
   let nameFlash = $(".nameflsh ");
   nameFlash.hide();
@@ -167,19 +166,19 @@ $('#name').focusout(function(){
           let nameInput=$('#name').val();
           let pattern = /^[a-z]+[\s]?[a-z]+$/i;
           if (!pattern.test(nameInput) ) {
-              $("#name").css("border-color", "red");
-              nameFlash.show(1000);
+              $("#name").css("border-color", "#FFBB00");
+              nameFlash.slideDown().show(1000);
               }
           if (pattern.test(nameInput) ) {
               $("#name").css("border-color", "#c1deeb");
-              nameFlash.hide(1000);
+              nameFlash.slideUp().hide(1000);
             }
         })
     });
 });
 
 
-/* Email field (proper formatting) */
+/* Email field (proper formatting). Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
 $(document).ready(function() {
   let mailFlash = $(".mailflsh ");
   mailFlash.hide();
@@ -189,19 +188,19 @@ $('#mail').focusout(function() {
           let emailInput=$('#mail').val();
           let pattern = /^[^@]+@[^@.]+\.[a-z]+$/i;
           if (!pattern.test(emailInput) ) {
-              $("#mail").css("border-color", "red");
-              mailFlash.show(1000);
+              $("#mail").css("border-color", "#FFBB00");
+              mailFlash.slideDown().show(1000);
               }
           if (pattern.test(emailInput) ) {
               $("#mail").css("border-color", "#c1deeb");
-              mailFlash.hide(1000);
+              mailFlash.slideUp().hide(1000);
             }
         })
     });
 });
 
 
-/* Validate at least one activity is selected */
+/* Validate at least one activity is selected. If an activity is not selected, an alert displays when the submit button is clicked. The form will not submit using the event.preventDefault() method until an activity has been selected. */
 $(document).ready(function() {
     $(".submit-btn").click(function(event) {
         activityVal();
@@ -219,7 +218,7 @@ function activityVal() {
 }
 
 
-/* Validate CC number is between 13-16 digits */
+/* Validate CC number is between 13-16 digits. Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
 $(document).ready(function() {
   let ccFlash = $(".ccnum ");
   ccFlash.hide();
@@ -227,14 +226,17 @@ $(document).ready(function() {
 $('#cc-num').focusout(function() {
       $('#cc-num').filter(function() {
           let ccInput=$('#cc-num').val();
-          let pattern = /\d{13,16}/;
+          let pattern = /^\d{13,16}$/;
           if (!pattern.test(ccInput) ) {
-              $("#cc-num").css("border-color", "red");
-              ccFlash.show(1000);
+              $("#cc-num").css("border-color", "#FFBB00");
+              $(".col-3").css("margin-bottom", "82px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+              $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+              ccFlash.slideDown().show(1000);
               }
           if (pattern.test(ccInput) ) {
               $("#cc-num").css("border-color", "#c1deeb");
-              ccFlash.hide(1000);
+              $(".col-3").css("margin-bottom", "1em");
+              ccFlash.slideUp().hide(1000);
             }
         })
     });
@@ -242,7 +244,7 @@ $('#cc-num').focusout(function() {
 
 
 
-/* Validate zip is 5 digits */
+/* Validate zip is 5 digits. Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
 $(document).ready(function() {
   let zipFlash = $(".zip ");
   zipFlash.hide();
@@ -250,22 +252,25 @@ $(document).ready(function() {
 $('#zip').focusout(function() {
       $('#zip').filter(function() {
           let zipInput=$('#zip').val();
-          let pattern = /\d{5}/;
+          let pattern = /^\d{5}$/;
           if (!pattern.test(zipInput) ) {
-              $("#zip").css("border-color", "red");
-              zipFlash.show(1000);
+              $("#zip").css("border-color", "#FFBB00");
+              //$(".col-3").css("margin-bottom", "82px");
+              $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+              zipFlash.slideDown().show(1000);
               }
           if (pattern.test(zipInput) ) {
               $("#zip").css("border-color", "#c1deeb");
-              zipFlash.hide(1000);
+              //$(".col-3").css("margin-bottom", "1em");
+              $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+              zipFlash.slideUp().hide(1000);
             }
         })
     });
 });
 
 
-
-/* Validate CVV is 3 digits */
+/* Validate CVV is 3 digits. Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
 
 $(document).ready(function() {
   let cvvFlash = $(".cvv ");
@@ -273,21 +278,21 @@ $(document).ready(function() {
 
 $('#cvv').focusout(function() {
       $('#cvv').filter(function() {
-          let ccvInput=$('#cvv').val();
-          let pattern = /\d{3}/;
-          if (!pattern.test(ccvInput) ) {
-              $("#cvv").css("border-color", "red");
-              cvvFlash.show(1000);
+          let cvvInput=$('#cvv').val();
+          let pattern = /^\d{3}$/;
+          if (!pattern.test(cvvInput) ) {
+              $("#cvv").css("border-color", "#FFBB00");
+              $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
+              cvvFlash.slideDown().show(1000);
               }
-          if (pattern.test(ccvInput) ) {
+          if (pattern.test(cvvInput) ) {
               $("#cvv").css("border-color", "#c1deeb");
-              cvvFlash.show(1000);
+              $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
+              cvvFlash.slideUp().hide(1000);
             }
         })
     });
 });
-
-
 
 
 /* 7. Form works without JavaScript:
