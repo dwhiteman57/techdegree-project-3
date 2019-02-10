@@ -48,6 +48,7 @@ function tshirt() {
     $("#heart").hide();
   }
   if (selHeart.is(':selected')) {
+    $('#colors-js-puns').show();
     $("#heart").show();
     $("#puns").hide();
   }
@@ -96,23 +97,31 @@ function activityReg() {
   let nodeJs = $('#reg-activity input[name="node"]').is(":checked");
   if (frame == true) {
       $("#exp").css("color", "grey");
+      $("input.exps").prop("disabled", true);
     } else {
       $("#exp").css("color", "#000");
+      $("input.exps").prop("disabled", false);
     }
   if (exp == true) {
       $("#js-frame").css("color", "grey");
+      $("input.frame").prop("disabled", true);
     } else {
       $("#js-frame").css("color", "#000");
+      $("input.frame").prop("disabled", false);
     }
   if (libs == true) {
       $("#nodejs").css("color", "grey");
+      $("input.njs").prop("disabled", true);
     } else {
       $("#nodejs").css("color", "#000");
+      $("input.njs").prop("disabled", false);
     }
   if (nodeJs == true) {
       $("#js-libs").css("color", "grey");
+      $("input.libs").prop("disabled", true);
     } else {
       $("#js-libs").css("color", "#000");
+      $("input.libs").prop("disabled", false);
     }
 }
 
@@ -169,7 +178,7 @@ $('#name').focusout(function(){
               $("#name").css("border-color", "#FFBB00");
               nameFlash.slideDown().show(1000);
               }
-          if (pattern.test(nameInput) ) {
+          else if (pattern.test(nameInput) ) {
               $("#name").css("border-color", "#c1deeb");
               nameFlash.slideUp().hide(1000);
             }
@@ -200,22 +209,19 @@ $('#mail').focusout(function() {
 });
 
 
-/* Validate at least one activity is selected. If an activity is not selected, an alert displays when the submit button is clicked. The form will not submit using the event.preventDefault() method until an activity has been selected. */
-$(document).ready(function() {
-    $(".submit-btn").click(function(event) {
-        activityVal();
-    });
-});
+/* Validate at least one activity is selected. If an activity is not selected when user tries to submit the form, a notification will appear and submission blocked */
+let actFlash = $(".act ");
+actFlash.hide();
 
-function activityVal() {
-    let actSel = $("#reg-activity input[type='checkbox']").is(":checked");
-    if (actSel == false) {
-        alert("Please register for an activity");
-        event.preventDefault();
-    } else {
+$(".submit-btn").click(function() {
+           var checkboxes = $("input[type='checkbox']");
+           if (checkboxes.is(":checked")) {
+             } else {
+               actFlash.slideDown().show(1000);
+               event.preventDefault();
+             }
+          });
 
-    }
-}
 
 
 /* Validate CC number is between 13-16 digits. Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
@@ -295,6 +301,22 @@ $('#cvv').focusout(function() {
 });
 
 
-/* 7. Form works without JavaScript:
+/* 7. Form Validator:
+      - Check that all fields match required input before submission can pass.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 8. Form works without JavaScript:
       - User should have access to all form fields and payment info if JS isn't working
 */
