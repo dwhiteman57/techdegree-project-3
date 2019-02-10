@@ -9,7 +9,6 @@ $("#name").focus();
 //Hide 'other field'.
 $(".other").hide();
 
-
 /* 2. Job role section:
       - Include a text field that will reveal when 'other' is selected from job role drop down.
       - Give the field an ID of 'other-title' and add placeholder text 'Your Job Role'
@@ -150,7 +149,6 @@ function paymentSelect() {
           $('.bitcoin').show();
           $('#credit-card, .paypal').hide();
        }
-
     if (select_status == 'credit card') {
          $('#credit-card').show();
          $('.instructions').hide();
@@ -159,6 +157,14 @@ function paymentSelect() {
 
 
 /* 6. Form Validation: (RegEx) */
+
+// Regular Expressions Variables:
+const namePattern = /^[a-z]+[\s]?[a-z]+$/i;
+const emailPattern = /^[^@]+@[^@.]+\.[a-z]+$/i;
+//const regActPattern = $("input[type='checkbox']").is(":checked");
+const ccPattern = /^\d{13,16}$/;
+const zipPattern = /^\d{5}$/;
+const cvvPattern = /^\d{3}$/;
 
 
 /*-----------VALIDATORS & NOTIFICATIONS---------------*/
@@ -173,12 +179,11 @@ $(document).ready(function() {
 $('#name').focusout(function(){
       $('#name').filter(function(){
           let nameInput=$('#name').val();
-          let pattern = /^[a-z]+[\s]?[a-z]+$/i;
-          if (!pattern.test(nameInput) ) {
+          if (!namePattern.test(nameInput) ) {
               $("#name").css("border-color", "#FFBB00");
               nameFlash.slideDown().show(1000);
               }
-          else if (pattern.test(nameInput) ) {
+          else if (namePattern.test(nameInput) ) {
               $("#name").css("border-color", "#c1deeb");
               nameFlash.slideUp().hide(1000);
             }
@@ -195,12 +200,11 @@ $(document).ready(function() {
 $('#mail').focusout(function() {
       $('#mail').filter(function() {
           let emailInput=$('#mail').val();
-          let pattern = /^[^@]+@[^@.]+\.[a-z]+$/i;
-          if (!pattern.test(emailInput) ) {
+          if (!emailPattern.test(emailInput) ) {
               $("#mail").css("border-color", "#FFBB00");
               mailFlash.slideDown().show(1000);
               }
-          if (pattern.test(emailInput) ) {
+          if (emailPattern.test(emailInput) ) {
               $("#mail").css("border-color", "#c1deeb");
               mailFlash.slideUp().hide(1000);
             }
@@ -210,17 +214,21 @@ $('#mail').focusout(function() {
 
 
 /* Validate at least one activity is selected. If an activity is not selected when user tries to submit the form, a notification will appear and submission blocked */
-let actFlash = $(".act ");
-actFlash.hide();
+$(document).ready(function() {
+  let actFlash = $(".act ");
+  actFlash.hide();
 
-$(".submit-btn").click(function() {
-           var checkboxes = $("input[type='checkbox']");
-           if (checkboxes.is(":checked")) {
-             } else {
-               actFlash.slideDown().show(1000);
-               event.preventDefault();
-             }
-          });
+$('#reg-activity').filter(function() {
+          let actSel = $("#reg-activity input[type='checkbox']").is(":checked");
+          if (actSel == false) {
+              $(".submit-btn").click(function(event) {
+                actFlash.slideDown().show(1000);
+            })
+          } else {
+
+          }
+    });
+});
 
 
 
@@ -232,14 +240,13 @@ $(document).ready(function() {
 $('#cc-num').focusout(function() {
       $('#cc-num').filter(function() {
           let ccInput=$('#cc-num').val();
-          let pattern = /^\d{13,16}$/;
-          if (!pattern.test(ccInput) ) {
+          if (!ccPattern.test(ccInput) ) {
               $("#cc-num").css("border-color", "#FFBB00");
               $(".col-3").css("margin-bottom", "82px"); //This is to correct the expiration date label from shifting out of position when help menu appears
               $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
               ccFlash.slideDown().show(1000);
               }
-          if (pattern.test(ccInput) ) {
+          if (ccPattern.test(ccInput) ) {
               $("#cc-num").css("border-color", "#c1deeb");
               $(".col-3").css("margin-bottom", "1em");
               ccFlash.slideUp().hide(1000);
@@ -258,14 +265,13 @@ $(document).ready(function() {
 $('#zip').focusout(function() {
       $('#zip').filter(function() {
           let zipInput=$('#zip').val();
-          let pattern = /^\d{5}$/;
-          if (!pattern.test(zipInput) ) {
+          if (!zipPattern.test(zipInput) ) {
               $("#zip").css("border-color", "#FFBB00");
               //$(".col-3").css("margin-bottom", "82px");
               $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
               zipFlash.slideDown().show(1000);
               }
-          if (pattern.test(zipInput) ) {
+          if (zipPattern.test(zipInput) ) {
               $("#zip").css("border-color", "#c1deeb");
               //$(".col-3").css("margin-bottom", "1em");
               $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
@@ -285,13 +291,12 @@ $(document).ready(function() {
 $('#cvv').focusout(function() {
       $('#cvv').filter(function() {
           let cvvInput=$('#cvv').val();
-          let pattern = /^\d{3}$/;
-          if (!pattern.test(cvvInput) ) {
+          if (!cvvPattern.test(cvvInput) ) {
               $("#cvv").css("border-color", "#FFBB00");
               $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
               cvvFlash.slideDown().show(1000);
               }
-          if (pattern.test(cvvInput) ) {
+          if (cvvPattern.test(cvvInput) ) {
               $("#cvv").css("border-color", "#c1deeb");
               $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
               cvvFlash.slideUp().hide(1000);
@@ -305,13 +310,43 @@ $('#cvv').focusout(function() {
       - Check that all fields match required input before submission can pass.
 */
 
+$(document).ready(function() {
+    $(".submit-btn").click(function() {
 
+        let nameInput = $('#name').val();
+        let emailInput = $('#mail').val();
+        let checkboxes = $("input[type='checkbox']");
+        let ccInput = $('#cc-num').val();
+        let zipInput = $('#zip').val();
+        let cvvInput = $('#cvv').val();
+        let errors = false;
 
-
-
-
-
-
+        if (nameInput == '' ||  !namePattern.test(nameInput)) {
+            errors = true;
+        }
+        if (emailInput == '' ||  !emailPattern.test(emailInput)) {
+            errors = true;
+        }
+        if (!checkboxes.is(":checked")) {
+            errors = true;
+        }
+        if (ccInput == '' ||  !ccPattern.test(ccInput)) {
+            errors = true;
+        }
+        if (zipInput == '' ||  !zipPattern.test(zipInput)) {
+            errors = true;
+        }
+        if (cvvInput == '' ||  !cvvPattern.test(cvvInput)) {
+            errors = true;
+        }
+        if (errors == true) {
+            alert('fix this');
+            event.preventDefault();
+        } else {
+            return true;
+        }
+    });
+});
 
 
 
