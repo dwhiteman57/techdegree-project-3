@@ -158,10 +158,9 @@ function paymentSelect() {
 
 /* 6. Form Validation: (RegEx) */
 
-// Regular Expressions Variables:
+// Declare Regular Expressions Variables:
 const namePattern = /^[a-z]+[\s]?[a-z]+$/i;
 const emailPattern = /^[^@]+@[^@.]+\.[a-z]+$/i;
-//const regActPattern = $("input[type='checkbox']").is(":checked");
 const ccPattern = /^\d{13,16}$/;
 const zipPattern = /^\d{5}$/;
 const cvvPattern = /^\d{3}$/;
@@ -176,20 +175,19 @@ $(document).ready(function() {
   nameFlash.hide();
 
 
-$('#name').focusout(function(){
-      $('#name').filter(function(){
-          let nameInput=$('#name').val();
-          if (!namePattern.test(nameInput) ) {
-              $("#name").css("border-color", "#FFBB00");
-              nameFlash.slideDown().show(1000);
-              }
-          else if (namePattern.test(nameInput) ) {
-              $("#name").css("border-color", "#c1deeb");
-              nameFlash.slideUp().hide(1000);
-            }
-        })
+$('.submit-btn').click(function() {
+      let nameInput=$('#name').val();
+      if (!namePattern.test(nameInput) ) {
+          $("#name").css("border-color", "#FFBB00");
+          nameFlash.slideDown().show(1000);
+          }
+      else if (namePattern.test(nameInput) ) {
+          $("#name").css("border-color", "#c1deeb");
+          nameFlash.slideUp().hide(1000);
+        }
     });
 });
+
 
 
 /* Email field (proper formatting). Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
@@ -197,39 +195,34 @@ $(document).ready(function() {
   let mailFlash = $(".mailflsh ");
   mailFlash.hide();
 
-$('#mail').focusout(function() {
-      $('#mail').filter(function() {
-          let emailInput=$('#mail').val();
-          if (!emailPattern.test(emailInput) ) {
-              $("#mail").css("border-color", "#FFBB00");
-              mailFlash.slideDown().show(1000);
-              }
-          if (emailPattern.test(emailInput) ) {
-              $("#mail").css("border-color", "#c1deeb");
-              mailFlash.slideUp().hide(1000);
-            }
-        })
+$('.submit-btn').click(function() {
+      let emailInput=$('#mail').val();
+      if (!emailPattern.test(emailInput) ) {
+          $("#mail").css("border-color", "#FFBB00");
+          mailFlash.slideDown().show(1000);
+          }
+      if (emailPattern.test(emailInput) ) {
+          $("#mail").css("border-color", "#c1deeb");
+          mailFlash.slideUp().hide(1000);
+        }
     });
 });
 
 
 /* Validate at least one activity is selected. If an activity is not selected when user tries to submit the form, a notification will appear and submission blocked */
-$(document).ready(function() {
-  let actFlash = $(".act ");
-  actFlash.hide();
+let actFlash = $(".act ");
+actFlash.hide();
 
-$('#reg-activity').filter(function() {
-          let actSel = $("#reg-activity input[type='checkbox']").is(":checked");
-          if (actSel == false) {
-              $(".submit-btn").click(function(event) {
-                actFlash.slideDown().show(1000);
-            })
-          } else {
-
-          }
-    });
-});
-
+$(".submit-btn").click(function() {
+           let checkboxes = (!$("input:checkbox").is(":checked"));
+           if (checkboxes == true) {
+               $("input.submit-btn").prop("disabled", true);
+               actFlash.slideDown().show(1000);
+           } else {
+               $("input.submit-btn").prop("disabled", true);
+               actFlash.slideUp().hide(1000);
+            }
+        });
 
 
 /* Validate CC number is between 13-16 digits. Added a notification for invalid RegEx and changed border color to orange. Notificaton and orange border dissapear on valid RegEx] */
@@ -237,21 +230,20 @@ $(document).ready(function() {
   let ccFlash = $(".ccnum ");
   ccFlash.hide();
 
-$('#cc-num').focusout(function() {
-      $('#cc-num').filter(function() {
-          let ccInput=$('#cc-num').val();
-          if (!ccPattern.test(ccInput) ) {
-              $("#cc-num").css("border-color", "#FFBB00");
-              $(".col-3").css("margin-bottom", "82px"); //This is to correct the expiration date label from shifting out of position when help menu appears
-              $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
-              ccFlash.slideDown().show(1000);
-              }
-          if (ccPattern.test(ccInput) ) {
-              $("#cc-num").css("border-color", "#c1deeb");
-              $(".col-3").css("margin-bottom", "1em");
-              ccFlash.slideUp().hide(1000);
-            }
-        })
+
+$('.submit-btn').click(function() {
+      let ccInput=$('#cc-num').val();
+      if (!ccPattern.test(ccInput) ) {
+          $("#cc-num").css("border-color", "#FFBB00");
+          $(".col-3").css("margin-bottom", "82px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+          $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+          ccFlash.slideDown().show(1000);
+          }
+      if (ccPattern.test(ccInput) ) {
+          $("#cc-num").css("border-color", "#c1deeb");
+          $(".col-3").css("margin-bottom", "1em");
+          ccFlash.slideUp().hide(1000);
+        }
     });
 });
 
@@ -262,22 +254,19 @@ $(document).ready(function() {
   let zipFlash = $(".zip ");
   zipFlash.hide();
 
-$('#zip').focusout(function() {
-      $('#zip').filter(function() {
-          let zipInput=$('#zip').val();
-          if (!zipPattern.test(zipInput) ) {
-              $("#zip").css("border-color", "#FFBB00");
-              //$(".col-3").css("margin-bottom", "82px");
-              $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
-              zipFlash.slideDown().show(1000);
-              }
-          if (zipPattern.test(zipInput) ) {
-              $("#zip").css("border-color", "#c1deeb");
-              //$(".col-3").css("margin-bottom", "1em");
-              $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
-              zipFlash.slideUp().hide(1000);
-            }
-        })
+
+$('.submit-btn').click(function() {
+      let zipInput=$('#zip').val();
+      if (!zipPattern.test(zipInput) ) {
+          $("#zip").css("border-color", "#FFBB00");
+          $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+          zipFlash.slideDown().show(1000);
+          }
+      if (zipPattern.test(zipInput) ) {
+          $("#zip").css("border-color", "#c1deeb");
+          $("#marg-fix").css("margin-right", "88px"); //This is to correct the expiration date label from shifting out of position when help menu appears
+          zipFlash.slideUp().hide(1000);
+        }
     });
 });
 
@@ -288,20 +277,19 @@ $(document).ready(function() {
   let cvvFlash = $(".cvv ");
   cvvFlash.hide();
 
-$('#cvv').focusout(function() {
-      $('#cvv').filter(function() {
-          let cvvInput=$('#cvv').val();
-          if (!cvvPattern.test(cvvInput) ) {
-              $("#cvv").css("border-color", "#FFBB00");
-              $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
-              cvvFlash.slideDown().show(1000);
-              }
-          if (cvvPattern.test(cvvInput) ) {
-              $("#cvv").css("border-color", "#c1deeb");
-              $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
-              cvvFlash.slideUp().hide(1000);
-            }
-        })
+
+$('.submit-btn').click(function() {
+      let cvvInput=$('#cvv').val();
+      if (!cvvPattern.test(cvvInput) ) {
+          $("#cvv").css("border-color", "#FFBB00");
+          $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
+          cvvFlash.slideDown().show(1000);
+          }
+      if (cvvPattern.test(cvvInput) ) {
+          $("#cvv").css("border-color", "#c1deeb");
+          $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
+          cvvFlash.slideUp().hide(1000);
+        }
     });
 });
 
@@ -315,10 +303,14 @@ $(document).ready(function() {
 
         let nameInput = $('#name').val();
         let emailInput = $('#mail').val();
-        let checkboxes = $("input[type='checkbox']");
+        let checkboxes = (!$("input:checkbox").is(":checked"));
         let ccInput = $('#cc-num').val();
         let zipInput = $('#zip').val();
         let cvvInput = $('#cvv').val();
+        // let bitcoin = $('#payment option[value="bitcoin"]');
+        // let paypal = $('#payment option[value="paypal]');
+        // let creditCardSelect = $('#payment option[value="credit card]');
+        // let payInfo = $('#payment').val();
         let errors = false;
 
         if (nameInput == '' ||  !namePattern.test(nameInput)) {
@@ -327,9 +319,12 @@ $(document).ready(function() {
         if (emailInput == '' ||  !emailPattern.test(emailInput)) {
             errors = true;
         }
-        if (!checkboxes.is(":checked")) {
+        if (checkboxes == true) {
             errors = true;
         }
+        // if (payInfo == 'credit card' || !'bitcoin' || !'paypal') {
+        //     errors = true;
+        // }
         if (ccInput == '' ||  !ccPattern.test(ccInput)) {
             errors = true;
         }
@@ -340,15 +335,14 @@ $(document).ready(function() {
             errors = true;
         }
         if (errors == true) {
-            alert('fix this');
+            return false;
+            //alert('fix this');
             event.preventDefault();
         } else {
             return true;
         }
     });
 });
-
-
 
 
 
