@@ -307,10 +307,7 @@ $(document).ready(function() {
         let ccInput = $('#cc-num').val();
         let zipInput = $('#zip').val();
         let cvvInput = $('#cvv').val();
-        // let bitcoin = $('#payment option[value="bitcoin"]');
-        // let paypal = $('#payment option[value="paypal]');
-        // let creditCardSelect = $('#payment option[value="credit card]');
-        // let payInfo = $('#payment').val();
+        let payInfo = $('#payment').val();
         let errors = false;
 
         if (nameInput == '' ||  !namePattern.test(nameInput)) {
@@ -322,22 +319,20 @@ $(document).ready(function() {
         if (checkboxes == true) {
             errors = true;
         }
-        // if (payInfo == 'credit card' || !'bitcoin' || !'paypal') {
-        //     errors = true;
-        // }
-        if (ccInput == '' ||  !ccPattern.test(ccInput)) {
-            errors = true;
-        }
-        if (zipInput == '' ||  !zipPattern.test(zipInput)) {
-            errors = true;
-        }
-        if (cvvInput == '' ||  !cvvPattern.test(cvvInput)) {
-            errors = true;
+        if (payInfo == 'credit card') {
+            if (ccInput == '' ||  !ccPattern.test(ccInput)) {
+                errors = true;
+            }
+            if (zipInput == '' ||  !zipPattern.test(zipInput)) {
+                errors = true;
+            }
+            if (cvvInput == '' ||  !cvvPattern.test(cvvInput)) {
+                errors = true;
+            }
         }
         if (errors == true) {
+            alert('Please review required fields');
             return false;
-            //alert('fix this');
-            event.preventDefault();
         } else {
             return true;
         }
