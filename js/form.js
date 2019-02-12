@@ -174,10 +174,11 @@ const ccFlash = $(".ccnum ").hide();
 const zipFlash = $(".zip ").hide();
 const cvvFlash = $(".cvv ").hide();
 
-/*-----------TOOL TIP NOTIFICATIONS & VALIDATORS FUNCTION---------------*/
+
+/*-----------TOOL TIP NOTIFICATIONS VALIDATORS---------------*/
 
 $(document).ready(function() {
-  $('.submit-btn').click(function() {
+  $('form').on('submit', function() {
         //Field value getters
         let nameInput = $('#name').val();
         let emailInput = $('#mail').val();
@@ -185,6 +186,8 @@ $(document).ready(function() {
         let ccInput = $('#cc-num').val();
         let zipInput = $('#zip').val();
         let cvvInput = $('#cvv').val();
+        let payInfo = $('#payment').val();
+        let errors = false;
 
         //Name field tool tip
         if (!namePattern.test(nameInput) ) {
@@ -251,25 +254,9 @@ $(document).ready(function() {
             $(".col-3").css("margin-bottom", "1em"); //This is to correct the expiration date label from shifting out of position when help menu appears
             cvvFlash.slideUp().hide(1000);
             }
-      });
-});
-
-
-/* 7. Form Validator:
-      - Check that all fields match required input before submission can pass.
-*/
-
-$(document).ready(function() {
-    $(".submit-btn").click(function() {
-        let nameInput = $('#name').val();
-        let emailInput = $('#mail').val();
-        let checkboxes = (!$("input:checkbox").is(":checked"));
-        let ccInput = $('#cc-num').val();
-        let zipInput = $('#zip').val();
-        let cvvInput = $('#cvv').val();
-        let payInfo = $('#payment').val();
-        let errors = false;
-
+        /* 7. Form Validator:
+              - Check that all fields match required input before submission can pass.
+        */
         if (nameInput == '' ||  !namePattern.test(nameInput)) {
             errors = true;
         }
@@ -298,7 +285,6 @@ $(document).ready(function() {
         }
     });
 });
-
 
 
 /* 8. Form works without JavaScript:
